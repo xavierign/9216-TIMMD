@@ -24,7 +24,9 @@ The prediction should be submmited to
 https://xavierign.shinyapps.io/9216-Q1-CostCalculator/
 
 the cost will be computed on the errors:
-false positive: 1
+
+false positive: 1 
+
 false negative: 2
 
 Better models will be discussed during the course.
