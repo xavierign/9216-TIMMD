@@ -13,8 +13,12 @@ This is a list of contributions made by students
     * web: https://agusdemarco.github.io/
 * **Optimización de la Metodología de Detección de Plagio en Informes mediante Modelización Matemática y Text Mining IGNACIO SANTAMARÍA ARIEL SCHWARTZ. Propuesta de tesis, 2C 2022
     * pdf: https://github.com/xavierign/9216-TIMMD/blob/master/Propuesta%20de%20Tesis%20-%20Ignacio%20Santamar%C3%ADa%20y%20Ariel%20Schwartz.pdf
-* **Desarrollo e Implementación de modelo corrector de definiciones en exámenes de Investigación Operativa basado en Inteligencia Artificial. Conozcan a BotIO, una experiencia pedagógica. CLAIO Dic 2022 (claio2022.dc.uba.ar) Xavier Gonzalez, Horacio Rojo, Silvia Ramos, Facundo Andres Toniolo, Sofia Maira Parrino, Joaquin Renovales, Juan Palomeque, Noelia Lucia Florez Uría, Mateo Marco, Julieta Belén Romanelli,
+* **Desarrollo e Implementación de modelo corrector de definiciones en exámenes de Investigación Operativa basado en Inteligencia Artificial. Conozcan a BotIO, una experiencia pedagógica** CLAIO Dic 2022 (claio2022.dc.uba.ar) Xavier Gonzalez, Horacio Rojo, Silvia Ramos, Facundo Andres Toniolo, Sofia Maira Parrino, Joaquin Renovales, Juan Palomeque, Noelia Lucia Florez Uría, Mateo Marco, Julieta Belén Romanelli,
     * pdf: https://github.com/xavierign/9216-TIMMD/blob/master/BotIO.pdf 1C 2022
-* **Air Traffic Analysis & Visualizations Camilo Varacalli - Nicolás Vincenti. 2C 2022
+* **Air Traffic Analysis & Visualizations** Camilo Varacalli - Nicolás Vincenti. 2C 2022
     * git: https://github.com/cvaracalli/TIMMD
     * web: https://cvaracalli.github.io/
+* **Resumí tu PDF con un click!** Dan Galer - Simón Zuzenberg. 1C 2023
+    * web: https://sumgpt-samxrvavbcvjk7qwfgx8lv.streamlit.app/
+* **Negocios, Márgenes e IA** Patricio Leciñana Tasso 1C 2023
+    * web: https://www.linkedin.com/pulse/negocios-m%2525C3%2525A1rgenes-e-ia-patricio-leci%2525C3%2525B1ana-tasso%3FtrackingId=dWZo11ErQ6iY19MqWjzMTg%253D%253D/?trackingId=dWZo11ErQ6iY19MqWjzMTg%3D%3D
