@@ -26,3 +26,5 @@ This is a list of contributions made by students
     * web: https://lookerstudio.google.com/u/1/reporting/90b5e4d1-53db-4922-854c-b0dfdae097c2/page/p_aetjeq3k8c
 * **Análisis de Resultados evento DATATON - FCC** Milagros Cabeza, Inés María Dardanelli, Guadalupe Domingo 1C 2023
     * web: https://github.com/xavierign/9216-TIMMD/blob/master/contributions/readme.md#:~:text=An%C3%A1lisis%20de-,Resultados,-del%20Evento%20FCC
+* **Negocios, Márgenes e IA**
+    * linkedin: https://www.linkedin.com/pulse/negocios-m%2525C3%2525A1rgenes-e-ia-patricio-leci%2525C3%2525B1ana-tasso%3FtrackingId=dWZo11ErQ6iY19MqWjzMTg%253D%253D/?trackingId=dWZo11ErQ6iY19MqWjzMTg%3D%3D
