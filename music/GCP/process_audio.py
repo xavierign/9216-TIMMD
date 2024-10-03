@@ -2,6 +2,8 @@ from google.cloud import storage
 import os
 import subprocess
 
+# Procesa archivos .mp3 o .wav
+
 # Initialize the GCS client
 client = storage.Client()
 bucket_name = os.getenv('BUCKET_NAME', 'default-bucket-name')

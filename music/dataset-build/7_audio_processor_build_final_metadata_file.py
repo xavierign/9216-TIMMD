@@ -15,9 +15,12 @@ def process_audio_files(directory='sample_audio/loops', track_metadata_csv='trac
     # Step 1: List all files in the directory
     files = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
 
+    print(files)
     # Step 2: Create a DataFrame with a column named 'file_name'
     df = pd.DataFrame(files, columns=['file_name'])
 
+    print(df)
+    
     # Step 3: Create a new column 'trackName' with the first 36 characters of 'file_name'
     df['trackName'] = df['file_name'].str[:36]
 
@@ -37,6 +40,8 @@ def process_audio_files(directory='sample_audio/loops', track_metadata_csv='trac
 
     df.to_csv(output_csv, index=False)
     print(df)
+
+    print("loops_metadata.csv generated")
     return df
 
 def generate_tempo_metadata(directory='sample_audio/loops', output_csv='tempo_metadata.csv'):
@@ -156,9 +161,7 @@ class AudioProcessor:
     def extract_segment(self, track_name, output_path, adjustment=0.0, 
         looped=False, include_stems=True, stems_location='sample_audio/stems', lower_bpm= 120, upper_bpm=124):
         
-        print(self.filtered_track_df['Name'])
         track_info = self.filtered_track_df[self.filtered_track_df['Name'] == track_name]
-        print(track_info)
         if track_info.empty:
             raise ValueError(f'Track with name {track_name} not found or not in the specified folder.')
 
@@ -243,30 +246,27 @@ class AudioProcessor:
 
             for stem in stems:
                 track_location = stems_location + "/" + track_name +  "/" + stem + '.wav'
-                if os.path.isfile(track_location):
-                    audio = AudioSegment.from_file(track_location)
-                    segment = audio[start_time_ms:end_time_ms]
+                audio = AudioSegment.from_file(track_location)
+                segment = audio[start_time_ms:end_time_ms]
 
-                    segment_0_16 = audio[start_time_ms:end_time_16_ms]
-                    segment_32_48 = audio[end_time_32_ms:end_time_48_ms]
+                segment_0_16 = audio[start_time_ms:end_time_16_ms]
+                segment_32_48 = audio[end_time_32_ms:end_time_48_ms]
 
-                    # Extract segments
-                    segment_0_16 = audio[start_time_ms:(start_time_ms + duration_16_beats)]
-                    segment_16_32 = audio[(start_time_ms + duration_16_beats):(start_time_ms + duration_32_beats)]
-                    segment_32_48 = audio[(start_time_ms + duration_32_beats):end_time_48_ms]
+                # Extract segments
+                segment_0_16 = audio[start_time_ms:(start_time_ms + duration_16_beats)]
+                segment_16_32 = audio[(start_time_ms + duration_16_beats):(start_time_ms + duration_32_beats)]
+                segment_32_48 = audio[(start_time_ms + duration_32_beats):end_time_48_ms]
 
-                    # Crossfade between segment_0_16 and segment_32_48
-                    fade_in = segment_0_16.fade(from_gain=-60, to_gain=0, start=0, duration=duration_16_beats)
-                    fade_out = segment_32_48.fade(from_gain=0, to_gain=-60, start=0, duration=duration_16_beats)
-                    transition = fade_out.overlay(fade_in, position=0)
-                    
-                    audio_loop = transition + segment_16_32
-                    
-                    # Export the looped segment
-                    output_file = os.path.join(output_path, f'{track_name}_{stem}_looped_segment.wav')
-                    audio_loop.export(output_file, format="wav")
-               else:
-                    print(f"WARNING: file %s doesn't exists",track_location)
+                # Crossfade between segment_0_16 and segment_32_48
+                fade_in = segment_0_16.fade(from_gain=-60, to_gain=0, start=0, duration=duration_16_beats)
+                fade_out = segment_32_48.fade(from_gain=0, to_gain=-60, start=0, duration=duration_16_beats)
+                transition = fade_out.overlay(fade_in, position=0)
+                
+                audio_loop = transition + segment_16_32
+                
+                # Export the looped segment
+                output_file = os.path.join(output_path, f'{track_name}_{stem}_looped_segment.wav')
+                audio_loop.export(output_file, format="wav")
             print(f'Looped segment saved to {output_file}')
 
 
@@ -294,66 +294,10 @@ class AudioProcessor:
     def read_csv(csv_path):
         return pd.read_csv(csv_path)
 
-# if __name__ == "__main__":
-
-# Example usage
 if __name__ == "__main__":
-    client_id = os.getenv('SPOTIPY_CLIENT_ID')
-    client_secret = os.getenv('SPOTIPY_CLIENT_SECRET')
 
-    if not client_id or not client_secret:
-        raise ValueError("Please set the SPOTIPY_CLIENT_ID and SPOTIPY_CLIENT_SECRET environment variables.")
-
-    spotify_handler = SpotifyHandler(client_id, client_secret)
-    # spotify_handler.save_artist_track_data('Tomas Heredia')  # Example usage
-    # spotify_handler.save_artist_sample_audio('Tomas Heredia', 'sample_output')  # Example usage
-
-    # Generate tempo and track metadata
-    PATH_MP3_FILES = "sample_audio/Angeles Azules/"
-    # generate_tempo_metadata(directory=PATH_MP3_FILES)
-    # generate_track_metadata(directory=PATH_MP3_FILES)
-    
     # Process audio files
-    # process_audio_files()
+    process_audio_files()
     
     # Existing functionality
     #generate_drums_spectrograms()
-    # Parse XML and read CSV files
-
-    base_path = "sample_audio/Angeles Azules/"
-    xml_path = 'rekordbox/collection_cumbia.xml'
-    track_df = AudioProcessor.parse_rekordbox_xml(xml_path)
-    #track_df[track_df['Location'].str.startswith(base_path)]
-    tempo_csv_path = 'tempo_metadata.csv'
-    tempo_df = AudioProcessor.read_csv(tempo_csv_path)
-
-    # Create an AudioProcessor instance
-    audio_processor = AudioProcessor(base_path, track_df, tempo_df)
-    # Example extraction
-    #track_name = 'spotify-track-0tvaWhHlhewQ6ovIwn6wnX'  # Replace with the track name you want to process
-    # Find all tracks that meet the criteria
-    lower_bpm = 80 # cumbia
-    upper_bpm = 100
-    # lower_bpm = 120 #electro
-    # upper_bpm = 124
-    print("WARNING: lower/upper bpm hardcodeados")
-    matching_tracks = tempo_df.groupby('TrackID').filter(lambda x: len(x) == 1)
-    # print(matching_tracks['Bpm'])
-    matching_tracks = matching_tracks[(matching_tracks['Bpm'] >= lower_bpm) & (matching_tracks['Bpm'] <= upper_bpm)]
-    matching_tracks = matching_tracks[matching_tracks['Name'].str.startswith('spotify-track-')]
-    # Get the file names
-    file_names = matching_tracks['Name']
-    #track_name = 'spotify-track-7GNBiHP71dMz18dCIksjSB'
-    output_path = 'sample_audio/loops'  # Replace with your desired output directory
-    adjustment = -0.05  # Adjust this value as needed
-    
-    # print("filenamsssss",file_names)
-    print("Spleeter stems output is stems_location (downloaded files for example)")
-    for f in file_names:
-        print(f)
-        audio_processor.extract_segment(f, output_path, adjustment, looped=True, lower_bpm=lower_bpm, upper_bpm=upper_bpm,stems_location='cumbia-dataset/output/')
-
-
-
-
-
